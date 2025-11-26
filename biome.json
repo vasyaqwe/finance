@@ -11,13 +11,14 @@
    },
    "files": {
       "includes": [
-         "**/src/**/*",
+         "**",
          "**/.vscode/**/*",
          "**/.wrangler/**/*",
          "**/.tanstack/**/*",
          "**/dist/**/*",
          "!**/routeTree.gen.ts",
          "!**/package.json",
+         "!**/bun.lock",
          "!**/vite-env.d.ts"
       ]
    },

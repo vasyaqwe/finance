@@ -2,7 +2,7 @@
   "name": "finance",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite dev --host",
     "build": "vite build && tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
