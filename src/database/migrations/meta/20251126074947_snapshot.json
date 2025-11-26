@@ -1,117 +1,115 @@
 {
-  "id": "904b0bc0-baaa-4cf9-87ac-bf6dcb1dfe2b",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "7",
-  "dialect": "postgresql",
-  "tables": {
-    "public.transaction": {
-      "name": "transaction",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "transaction_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
-        },
-        "cardNumber": {
-          "name": "cardNumber",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "currency": {
-          "name": "currency",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "amount": {
-          "name": "amount",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "date": {
-          "name": "date",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "category": {
-          "name": "category",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "importId": {
-          "name": "importId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "transaction_importId_unique": {
-          "name": "transaction_importId_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "importId"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    }
-  },
-  "enums": {},
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
-  "views": {},
-  "_meta": {
-    "columns": {},
-    "schemas": {},
-    "tables": {}
-  }
+   "id": "904b0bc0-baaa-4cf9-87ac-bf6dcb1dfe2b",
+   "prevId": "00000000-0000-0000-0000-000000000000",
+   "version": "7",
+   "dialect": "postgresql",
+   "tables": {
+      "public.transaction": {
+         "name": "transaction",
+         "schema": "",
+         "columns": {
+            "id": {
+               "name": "id",
+               "type": "integer",
+               "primaryKey": true,
+               "notNull": true,
+               "identity": {
+                  "type": "always",
+                  "name": "transaction_id_seq",
+                  "schema": "public",
+                  "increment": "1",
+                  "startWith": "1",
+                  "minValue": "1",
+                  "maxValue": "2147483647",
+                  "cache": "1",
+                  "cycle": false
+               }
+            },
+            "cardNumber": {
+               "name": "cardNumber",
+               "type": "text",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "currency": {
+               "name": "currency",
+               "type": "text",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "amount": {
+               "name": "amount",
+               "type": "integer",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "date": {
+               "name": "date",
+               "type": "timestamp",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "description": {
+               "name": "description",
+               "type": "text",
+               "primaryKey": false,
+               "notNull": false
+            },
+            "category": {
+               "name": "category",
+               "type": "text",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "type": {
+               "name": "type",
+               "type": "text",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "importId": {
+               "name": "importId",
+               "type": "text",
+               "primaryKey": false,
+               "notNull": false
+            },
+            "createdAt": {
+               "name": "createdAt",
+               "type": "timestamp",
+               "primaryKey": false,
+               "notNull": true
+            },
+            "updatedAt": {
+               "name": "updatedAt",
+               "type": "timestamp",
+               "primaryKey": false,
+               "notNull": true
+            }
+         },
+         "indexes": {},
+         "foreignKeys": {},
+         "compositePrimaryKeys": {},
+         "uniqueConstraints": {
+            "transaction_importId_unique": {
+               "name": "transaction_importId_unique",
+               "nullsNotDistinct": false,
+               "columns": ["importId"]
+            }
+         },
+         "policies": {},
+         "checkConstraints": {},
+         "isRLSEnabled": false
+      }
+   },
+   "enums": {},
+   "schemas": {},
+   "sequences": {},
+   "roles": {},
+   "policies": {},
+   "views": {},
+   "_meta": {
+      "columns": {},
+      "schemas": {},
+      "tables": {}
+   }
 }
