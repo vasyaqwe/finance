@@ -1,0 +1,13 @@
+node_modules
+
+*.tsbuildinfo
+
+*.pem
+.env
+
+dist
+.tanstack
+.wrangler
+.DS_Store
+vite.config.ts.timestamp-*.js
+vite.config.ts.timestamp-*.mjs
