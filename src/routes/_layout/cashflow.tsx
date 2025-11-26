@@ -1,10 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { line as d3_line, max, scaleLinear, scaleTime } from "d3"
+import { Database, Plus } from "iconoir-react"
 import { type CSSProperties, useMemo } from "react"
 import { formatCurrency } from "@/currency"
 import { formatDate } from "@/date"
-import { transactionCashflow } from "@/transaction/functions"
+import { transactionCashflow, transactionImport } from "@/transaction/functions"
 import { ChartTooltip } from "@/ui/components/chart/chart-tooltip"
+import { Empty } from "@/ui/components/empty"
+import { FileTrigger } from "@/ui/components/file-trigger"
 
 export const Route = createFileRoute("/_layout/cashflow")({
    component: RouteComponent,
@@ -17,10 +20,13 @@ export const Route = createFileRoute("/_layout/cashflow")({
 
 function RouteComponent() {
    const data = Route.useLoaderData()
+   const router = useRouter()
+
    const parsedData = useMemo(() => {
       return data
          .map((d) => {
             const [year, month, day] = d.date.split("-").map(Number)
+            if (!year || !month || !day) throw new Error("Invalid date")
             return {
                ...d,
                dateObj: new Date(year, month - 1, day),
@@ -29,10 +35,40 @@ function RouteComponent() {
          .sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime())
    }, [data])
 
+   if (data.length === 0)
+      return (
+         <Empty.Root>
+            <Empty.Header>
+               <Empty.Media variant="icon">
+                  <Database />
+               </Empty.Media>
+               <Empty.Title>No data found.</Empty.Title>
+               <Empty.Description>
+                  Import a statement to get started.
+               </Empty.Description>
+            </Empty.Header>
+            <Empty.Content>
+               <FileTrigger
+                  onChange={async (e) => {
+                     const formData = new FormData()
+                     const file = e.target.files?.[0]
+                     if (!file) return
+                     formData.append("file", file)
+                     transactionImport(file)
+                        .then(() => router.invalidate())
+                        .catch((error) => console.error(error))
+                  }}
+               >
+                  <Plus /> Import
+               </FileTrigger>
+            </Empty.Content>
+         </Empty.Root>
+      )
+
    const xScale = scaleTime()
       .domain([
-         parsedData[0].dateObj,
-         parsedData[parsedData.length - 1].dateObj,
+         parsedData[0]!.dateObj,
+         parsedData[parsedData.length - 1]!.dateObj,
       ])
       .range([0, 100])
 
@@ -132,27 +168,25 @@ function RouteComponent() {
                               />
                               <rect
                                  x={(() => {
+                                    const date = parsedData[index - 1]?.dateObj
+                                    if (!date) return xPos
                                     const prevX =
-                                       index > 0
-                                          ? xScale(
-                                               parsedData[index - 1].dateObj,
-                                            )
-                                          : xPos
+                                       index > 0 ? xScale(date) : xPos
                                     return (prevX + xPos) / 2
                                  })()}
                                  y={0}
                                  width={(() => {
+                                    const datePrev =
+                                       parsedData[index - 1]?.dateObj
+                                    const dateNext =
+                                       parsedData[index + 1]?.dateObj
+                                    if (!datePrev || !dateNext) return xPos
+
                                     const prevX =
-                                       index > 0
-                                          ? xScale(
-                                               parsedData[index - 1].dateObj,
-                                            )
-                                          : xPos
+                                       index > 0 ? xScale(datePrev) : xPos
                                     const nextX =
                                        index < parsedData.length - 1
-                                          ? xScale(
-                                               parsedData[index + 1].dateObj,
-                                            )
+                                          ? xScale(dateNext)
                                           : xPos
                                     const left = (prevX + xPos) / 2
                                     const right = (xPos + nextX) / 2

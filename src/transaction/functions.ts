@@ -48,6 +48,7 @@ export const transactionCashflow = async () => {
 
    for (const row of rows) {
       const rate = rates[row.currency]
+      if (!rate) continue
       const safeRate = rate === 0 ? 1 : rate
       const amountInTarget = Math.round(row.amount / safeRate)
 
@@ -125,6 +126,7 @@ export const transactionStats = async (
 
    for (const row of stats) {
       const rate = rates[row.currency]
+      if (!rate) continue
       const safeRate = rate === 0 ? 1 : rate
 
       const amountInTarget =

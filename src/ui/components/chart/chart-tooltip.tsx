@@ -78,8 +78,8 @@ function Trigger({ ref, ...props }: React.ComponentProps<"g">) {
          onTouchStart={(event) => {
             // On mobile, trigger when clicked instead of hover. Change as needed.
             context.setTooltip({
-               x: event.touches[0].clientX,
-               y: event.touches[0].clientY,
+               x: event.touches[0]?.clientX ?? 0,
+               y: event.touches[0]?.clientY ?? 0,
             })
             setTimeout(() => {
                context.setTooltip(undefined)

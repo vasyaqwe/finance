@@ -56,36 +56,40 @@ function RouteComponent() {
 
    return (
       <div>
-         <div className="fixed inset-x-0 bottom-6 mx-auto w-fit md:translate-x-28">
-            <Select.Root
-               value={search.month}
-               onValueChange={(month) =>
-                  navigate({ to: ".", search: { month } })
-               }
-            >
-               <Select.Trigger className={"bg-background/50 backdrop-blur-2xl"}>
-                  <Select.Value>
-                     {(value) =>
-                        formatDate(value, {
-                           month: "long",
-                           year: "numeric",
-                        })
-                     }
-                  </Select.Value>
-                  <Select.TriggerIcon />
-               </Select.Trigger>
-               <Select.Popup>
-                  {monthOptions(data.firstTransaction.date).map((item) => (
-                     <Select.Item
-                        key={item.value}
-                        value={item.value}
-                     >
-                        {item.label}
-                     </Select.Item>
-                  ))}
-               </Select.Popup>
-            </Select.Root>
-         </div>
+         {data.firstTransaction ? (
+            <div className="fixed inset-x-0 bottom-6 mx-auto w-fit md:translate-x-28">
+               <Select.Root
+                  value={search.month}
+                  onValueChange={(month) =>
+                     navigate({ to: ".", search: { month } })
+                  }
+               >
+                  <Select.Trigger
+                     className={"bg-background/50 backdrop-blur-2xl"}
+                  >
+                     <Select.Value>
+                        {(value) =>
+                           formatDate(value, {
+                              month: "long",
+                              year: "numeric",
+                           })
+                        }
+                     </Select.Value>
+                     <Select.TriggerIcon />
+                  </Select.Trigger>
+                  <Select.Popup>
+                     {monthOptions(data.firstTransaction.date).map((item) => (
+                        <Select.Item
+                           key={item.value}
+                           value={item.value}
+                        >
+                           {item.label}
+                        </Select.Item>
+                     ))}
+                  </Select.Popup>
+               </Select.Root>
+            </div>
+         ) : null}
          {data.transactions.length === 0 ? (
             <Empty.Root>
                <Empty.Header>
@@ -94,7 +98,7 @@ function RouteComponent() {
                   </Empty.Media>
                   <Empty.Title>No data found.</Empty.Title>
                   <Empty.Description>
-                     Import a statement or switch filter below.
+                     Import a statement to get started.
                   </Empty.Description>
                </Empty.Header>
                <Empty.Content>
