@@ -1,5 +1,4 @@
 import { PGlite } from "@electric-sql/pglite"
-import { vector } from "@electric-sql/pglite/vector"
 import { PgDialect } from "drizzle-orm/pg-core/dialect"
 import { drizzle } from "drizzle-orm/pglite"
 import { env } from "@/env"
@@ -8,10 +7,7 @@ import * as schema from "./schema"
 
 const DB_NAME = env.DEV ? "vasyaqwe_finance_dev" : "vasyaqwe_finance"
 
-const client = await PGlite.create({
-   dataDir: `idb://${DB_NAME}`,
-   extensions: { vector },
-})
+const client = new PGlite({ dataDir: `idb://${DB_NAME}` })
 
 const _db = drizzle(client, {
    schema,

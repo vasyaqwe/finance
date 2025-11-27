@@ -55,7 +55,7 @@ function RouteComponent() {
    const data = Route.useLoaderData()
 
    return (
-      <div>
+      <>
          {data.firstTransaction ? (
             <div className="fixed inset-x-0 bottom-6 mx-auto w-fit md:translate-x-28">
                <Select.Root
@@ -168,7 +168,7 @@ function RouteComponent() {
                <TransactionList />
             </Card.Root>
          )}
-      </div>
+      </>
    )
 }
 

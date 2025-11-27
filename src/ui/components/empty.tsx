@@ -5,7 +5,7 @@ function Root({ className, ...props }: React.ComponentProps<"div">) {
    return (
       <div
          className={cn(
-            "flex min-w-0 flex-1 flex-col items-center justify-center gap-6 text-balance rounded-xl border-dashed p-6 text-center md:p-12",
+            "flex min-w-0 flex-1 flex-col items-center gap-6 text-balance rounded-xl border-dashed px-6 text-center max-md:justify-center md:px-12",
             className,
          )}
          data-slot="empty"
